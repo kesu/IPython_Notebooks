@@ -1,0 +1,19 @@
+Technical details & acheivements - added these lines under each project
+
+Rogers
+•	Created processes to automatically identify most common fall-out scenarios and identified solutions to avoid them.
+•	Automated OSS-BSS reconciliation process reducing manual effort to minimum.
+
+Vodafone
+•	Project went live on-time and with excellent quality figures in customer acceptance testing.
+•	Included extensive automated unit tests in the build process which significantly reduced regression defects in the release cycles.
+
+AT&T
+•	Oversaw the transition of the release cycles into agile methodology.
+
+Excelcom
+•	Made use of concurrent processing and multi-threading to support the highest transaction volumes ever seen for Amdocs Activation Manager implementations – peak-hour rates of upto 1 million transactions per hour.
+
+Claro
+•	Transitioned multiple provisioning systems for wireless/wire-line/cable & satellite into a common platform. Was involved in the design of a common framework that made this possible.
+
