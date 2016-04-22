@@ -1,14 +1,17 @@
 $HttpListener = New-Object System.Net.HttpListener
-$HttpListener.Prefixes.Add("http://localhost:15900/")
+$HttpListener.Prefixes.Add("http://localhost:15903/")
 $HttpListener.Start()
 
+
+Try{
 While($HttpListener.IsListening) {
 
     $Context = $HttpListener.GetContext()
     $Request = $Context.Request
     $Response = $Context.Response
 
-    $headers = @{}; $query_string = @{}
+    $headers = @{}; $query_string = @{}; $body_str = "";
+
     $Request.Headers.Keys.ForEach({$headers.add($_, $Request.Headers.Get($_))})
     $Request.QueryString.ForEach({$query_string.add($_, $Request.QueryString.Get($_))})
 
@@ -22,15 +25,13 @@ While($HttpListener.IsListening) {
         $reader.Close()
     }
     
-    $response_dict = @{"HttpMethod"=$Request.HttpMethod;
-             "Headers"=$headers; 
-             "QueryString"=$query_string; 
-             "URL"=$Request.Url;
-             "RequestBody"=$body_str}
+    $response_dict = [ordered]@{
+            "URL"=$Request.Url;
+            "HttpMethod"=$Request.HttpMethod;
+            "Headers"=$headers; 
+            "QueryString"=$query_string;              
+            "RequestBody"=$body_str}
              
-        
-
-
    
     $response_json = ConvertTo-Json -InputObject $response_dict
 
@@ -39,7 +40,14 @@ While($HttpListener.IsListening) {
     $Output = $Response.OutputStream
     $Output.Write($Buffer, 0, $Buffer.Length)
     $Output.Close()
-    $HttpListener.Close()
+    $Response.Close()
+    
     
 }
+}
+Finally 
+{
 
+    $HttpListener.Stop()
+
+}
